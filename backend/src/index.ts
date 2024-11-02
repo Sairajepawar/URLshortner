@@ -1,10 +1,12 @@
 import express,{Request,Response} from "express";
 import {createRoute,getLink} from "./db"
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
-app.get("/link", async (req: Request, res: Response) => {
+app.post("/link", async (req: Request, res: Response) => {
     const code:string = req.body.code;
     try
     {

@@ -1,0 +1,54 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import './Landing.css'
+import {base_url} from "../../config.js";
+
+export default function Landing() {
+    const [url, setUrl] = useState('');  // To store the user's input
+    const [shortUrl, setShortUrl] = useState('');  // To store the generated short URL
+
+    // Function to handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // Call your backend API to get the shortened URL
+            const response = await axios.post('http://localhost:3000/create', { link: url });
+            setShortUrl(base_url+response.data.code);  // Update the state with the new short URL
+        } catch (error) {
+            console.error("Error shortening URL:", error);
+        }
+    };
+
+    // Function to copy the short URL to clipboard
+    const handleCopy = () => {
+        navigator.clipboard.writeText(shortUrl);
+        alert("Shortened URL copied to clipboard!");
+    };
+
+    return (
+        <div className="App">
+            <h1>URL Shortener</h1>
+
+            {/* Form for inputting long URL */}
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Enter a long URL"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    required
+                />
+                <button type="submit">Shorten</button>
+            </form>
+
+            {/* Display the shortened URL */}
+            {shortUrl && (
+                <div className="short-url-display">
+                    <p>Shortened URL: <a href={shortUrl} target="_blank" rel="noopener noreferrer">{shortUrl}</a></p>
+                    <button onClick={handleCopy}>Copy</button>
+                </div>
+            )}
+        </div>
+    );
+}
+
