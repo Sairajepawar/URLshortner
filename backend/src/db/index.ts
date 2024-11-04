@@ -1,6 +1,18 @@
 import {Client,Pool} from "pg";
 
-const config = require("../../data/config");
+console.log(process.env["DB_USER"])
+
+const config = {
+    user: process.env.DB_USER,
+    password: process.env.PASSWORD,
+    host: process.env.HOST,
+    port: process.env.PORT ? parseInt(process.env.PORT, 10) : undefined,
+    database: process.env.DATABASE,
+    ssl: {
+        rejectUnauthorized: false,
+        ca: process.env.CA,
+    }
+}
 
 const client = new Pool(config);
 

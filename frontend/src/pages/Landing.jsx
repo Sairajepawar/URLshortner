@@ -6,14 +6,17 @@ import {base_url} from "../../config.js";
 export default function Landing() {
     const [url, setUrl] = useState('');  // To store the user's input
     const [shortUrl, setShortUrl] = useState('');  // To store the generated short URL
+    const [loading, setLoading] = useState(false);
 
     // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             // Call your backend API to get the shortened URL
             const response = await axios.post('http://localhost:3000/create', { link: url });
             setShortUrl(base_url+response.data.code);  // Update the state with the new short URL
+            setLoading(false);
         } catch (error) {
             console.error("Error shortening URL:", error);
         }
@@ -42,6 +45,9 @@ export default function Landing() {
             </form>
 
             {/* Display the shortened URL */}
+            {loading && (
+                <div>Loading ....</div>
+            )}
             {shortUrl && (
                 <div className="short-url-display">
                     <p>Shortened URL: <a href={shortUrl} target="_blank" rel="noopener noreferrer">{shortUrl}</a></p>

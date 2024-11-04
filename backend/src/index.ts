@@ -1,6 +1,10 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import express,{Request,Response} from "express";
 import {createRoute,getLink} from "./db"
 import cors from "cors";
+
+
 
 const app = express();
 app.use(express.json());
@@ -26,7 +30,11 @@ app.post("/link", async (req: Request, res: Response) => {
 })
 
 app.post("/create", async (req: Request, res: Response) => {
-    const link:string = req.body.link;
+    let link:string = req.body.link;
+    const check:string = "https://"
+    if(link.length<check.length || link.substring(0,check.length)!=check){
+        link = check+link;
+    }
     try{
         let code:string = await createRoute(link);
         if(code==undefined){
@@ -52,4 +60,5 @@ app.get("/hello", (req:Request, res:Response):void => {
 
 app.listen(3000,():void=>{
     console.log("Server started");
+    // console.log(typeof(process.env.PASSWORD));
 });

@@ -6,7 +6,6 @@ export default function Result() {
     const { code } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         console.log(code);
@@ -16,17 +15,27 @@ export default function Result() {
                     code: code
                 });
                 console.log(result.data);
-                window.location.href = result.data.link;
+
+                // Open the result URL in a new tab
+                const newTab = window.open(result.data.link, '_blank');
+
+                // Attempt to close the current tab
+                if (newTab) {
+                    window.close();
+                } else {
+                    // Fallback for when the tab can't be closed
+                    console.log("Unable to close the current tab.");
+                }
             } catch (err) {
                 setError("Failed to fetch the link");
             }
-            finally{
+            finally {
                 setLoading(false);
             }
         };
 
         if (code) fetchData();
-    }, [code, navigate]);
+    }, [code]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
