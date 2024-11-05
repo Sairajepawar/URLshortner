@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Landing.css'
-
 export default function Landing() {
     const [url, setUrl] = useState('');  // To store the user's input
     const [shortUrl, setShortUrl] = useState('');  // To store the generated short URL
@@ -14,7 +13,7 @@ export default function Landing() {
         try {
             // Call your backend API to get the shortened URL
             const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}create`, { link: url });
-            setShortUrl(import.meta.env.VITE_BASE_URL+response.data.code);  // Update the state with the new short URL
+            setShortUrl(window.location.origin+"/"+response.data.code);  // Update the state with the new short URL
             setLoading(false);
         } catch (error) {
             console.error("Error shortening URL:", error);
