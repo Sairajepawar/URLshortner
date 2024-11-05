@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Landing.css'
-import {base_url} from "../../config.js";
 
 export default function Landing() {
     const [url, setUrl] = useState('');  // To store the user's input
@@ -14,8 +13,8 @@ export default function Landing() {
         setLoading(true);
         try {
             // Call your backend API to get the shortened URL
-            const response = await axios.post('http://localhost:3000/create', { link: url });
-            setShortUrl(base_url+response.data.code);  // Update the state with the new short URL
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}create`, { link: url });
+            setShortUrl(import.meta.env.VITE_BASE_URL+response.data.code);  // Update the state with the new short URL
             setLoading(false);
         } catch (error) {
             console.error("Error shortening URL:", error);

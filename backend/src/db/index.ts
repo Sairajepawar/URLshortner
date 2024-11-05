@@ -1,6 +1,5 @@
 import {Client,Pool} from "pg";
 
-console.log(process.env["DB_USER"])
 
 const config = {
     user: process.env.DB_USER,

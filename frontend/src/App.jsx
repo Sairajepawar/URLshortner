@@ -2,6 +2,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Landing from './pages/Landing.jsx'; // Import your landing page component
 import Result from './pages/Result.jsx'; // Import your code page component
 
+
 export default function App() {
     return (
         <BrowserRouter>

@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createRoute = createRoute;
 exports.getLink = getLink;
 const pg_1 = require("pg");
-console.log(process.env["DB_USER"]);
 const config = {
     user: process.env.DB_USER,
     password: process.env.PASSWORD,

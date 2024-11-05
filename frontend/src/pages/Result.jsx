@@ -8,13 +8,11 @@ export default function Result() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        console.log(code);
         const fetchData = async () => {
             try {
-                const result = await axios.post("http://localhost:3000/link", {
+                const result = await axios.post(`${import.meta.env.VITE_API_BASE_URL}link`, {
                     code: code
                 });
-                console.log(result.data);
 
                 // Open the result URL in a new tab
                 const newTab = window.open(result.data.link, '_blank');

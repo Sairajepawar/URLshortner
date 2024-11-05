@@ -60,5 +60,4 @@ app.get("/hello", (req:Request, res:Response):void => {
 
 app.listen(3000,():void=>{
     console.log("Server started");
-    // console.log(typeof(process.env.PASSWORD));
 });

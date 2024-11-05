@@ -88,5 +88,4 @@ app.get("/hello", (req, res) => {
 });
 app.listen(3000, () => {
     console.log("Server started");
-    // console.log(typeof(process.env.PASSWORD));
 });
