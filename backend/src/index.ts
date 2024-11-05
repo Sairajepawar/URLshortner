@@ -31,10 +31,9 @@ app.post("/link", async (req: Request, res: Response) => {
 
 app.post("/create", async (req: Request, res: Response) => {
     let link:string = req.body.link;
-    const check:string = "https://"
-    if(link.length<check.length || link.substring(0,check.length)!=check){
-        link = check+link;
-    }
+    const redirectUrl = link.startsWith("http")
+        ? link
+        : `https://${link}`;
     try{
         let code:string = await createRoute(link);
         if(code==undefined){
