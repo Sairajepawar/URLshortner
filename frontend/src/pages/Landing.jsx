@@ -13,7 +13,7 @@ export default function Landing() {
         try {
             // Call your backend API to get the shortened URL
             const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}create`, { link: url });
-            setShortUrl(window.location.origin+"/"+response.data.code);  // Update the state with the new short URL
+            setShortUrl(window.location.origin+"/redirect/"+response.data.code);  // Update the state with the new short URL
             setLoading(false);
         } catch (error) {
             setLoading(false);
