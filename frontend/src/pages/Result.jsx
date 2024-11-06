@@ -13,6 +13,7 @@ export default function Result() {
                 const result = await axios.post(`${import.meta.env.VITE_API_BASE_URL}link`, {
                     code: code
                 });
+                console.log(result.data.link);
                 window.location.href = result.data.link;
             } catch (err) {
                 setError("Failed to fetch the link");
