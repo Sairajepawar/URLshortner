@@ -62,12 +62,11 @@ app.post("/link", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 app.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let link = req.body.link;
-    const check = "https://";
-    if (link.length < check.length || link.substring(0, check.length) != check) {
-        link = check + link;
-    }
+    const redirectUrl = link.startsWith("http")
+        ? link
+        : `https://${link}`;
     try {
-        let code = yield (0, db_1.createRoute)(link);
+        let code = yield (0, db_1.createRoute)(redirectUrl);
         if (code == undefined) {
             throw new Error("Code generation failed");
         }

@@ -35,7 +35,7 @@ app.post("/create", async (req: Request, res: Response) => {
         ? link
         : `https://${link}`;
     try{
-        let code:string = await createRoute(link);
+        let code:string = await createRoute(redirectUrl);
         if(code==undefined){
             throw new Error("Code generation failed");
         }
