@@ -23,7 +23,9 @@ export default function Result() {
             }
         };
         if (code)
-            fetchData();
+            fetchData().then((response) => {
+                setLoading(false);
+            });
     }, []);
 
     if (loading) return <p>Loading...</p>;
