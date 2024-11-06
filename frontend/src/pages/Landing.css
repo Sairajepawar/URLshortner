@@ -1,6 +1,10 @@
 .App {
-    text-align: center;
     padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 form {
@@ -22,7 +26,11 @@ button {
 }
 
 .short-url-display {
-    margin-top: 20px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .short-url-display a {

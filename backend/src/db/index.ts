@@ -10,7 +10,8 @@ const config = {
     ssl: {
         rejectUnauthorized: false,
         ca: process.env.CA,
-    }
+    },
+    max: 10
 }
 
 const client = new Pool(config);
@@ -43,6 +44,11 @@ async function createRoute(link: string): Promise<string>{
     let code:string;
     try {
         await client.connect();
+        // check if code for an url exist or not
+        const result = await client.query(`select code from master_table where url=$1`,[link]);
+        if(result.rowCount==1){
+            return result.rows[0].code;
+        }
         code = await createCodes();
         await client.query(`insert into master_table(url,code) values ($1,$2)`,[link,code]);
         return code;

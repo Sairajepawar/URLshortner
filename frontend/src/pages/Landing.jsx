@@ -16,6 +16,7 @@ export default function Landing() {
             setShortUrl(window.location.origin+"/"+response.data.code);  // Update the state with the new short URL
             setLoading(false);
         } catch (error) {
+            setLoading(false);
             console.error("Error shortening URL:", error);
         }
     };
@@ -39,14 +40,14 @@ export default function Landing() {
                     onChange={(e) => setUrl(e.target.value)}
                     required
                 />
-                <button type="submit">Shorten</button>
+                <button type="submit">Enter</button>
             </form>
 
             {/* Display the shortened URL */}
             {loading && (
                 <div>Loading ....</div>
             )}
-            {shortUrl && (
+            {!loading && shortUrl && (
                 <div className="short-url-display">
                     <p>Shortened URL: <a href={shortUrl} target="_blank" rel="noopener noreferrer">{shortUrl}</a></p>
                     <button onClick={handleCopy}>Copy</button>

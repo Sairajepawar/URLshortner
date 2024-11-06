@@ -21,7 +21,8 @@ const config = {
     ssl: {
         rejectUnauthorized: false,
         ca: process.env.CA,
-    }
+    },
+    max: 10
 };
 const client = new pg_1.Pool(config);
 function generateCodes() {
@@ -53,6 +54,11 @@ function createRoute(link) {
         let code;
         try {
             yield client.connect();
+            // check if code for an url exist or not
+            const result = yield client.query(`select code from master_table where url=$1`, [link]);
+            if (result.rowCount == 1) {
+                return result.rows[0].code;
+            }
             code = yield createCodes();
             yield client.query(`insert into master_table(url,code) values ($1,$2)`, [link, code]);
             return code;
