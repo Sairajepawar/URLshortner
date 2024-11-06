@@ -5,9 +5,9 @@ export default function Result() {
     const { code } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
+        console.log(code);
         const fetchData = async () => {
             try {
                 const result = await axios.post(`${import.meta.env.VITE_API_BASE_URL}link`, {
